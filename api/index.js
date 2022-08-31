@@ -3,8 +3,12 @@ const { db } = require("./src/db.js");
 const { PORT } = process.env;
 
 // Syncing all the models at once.
-db.sync({ force: true }).then(() => {
-  server.listen(3001, () => {
-    console.log(`Server listening at ${PORT} 🟢🟢🟢🟢`);
+try {
+  db.sync({ force: true }).then(() => {
+    server.listen(3001, () => {
+      console.log(`#Server listening at ${PORT}!!! 🟢🟢🟢🟢`);
+    });
   });
-});
+} catch (error) {
+  console.log(error + "#Server not found!!! 🔴🔴🔴🔴");
+}
