@@ -1,57 +1,43 @@
-const { DataTypes } = require("sequelize");
-// Exportamos una funcion que define el modelo
-// Luego le injectamos la conexion a sequelize.
+const { DataTypes } = require('sequelize');
+// We export a function that defines the model, then we inject the connection to sequelize.
 module.exports = (sequelize) => {
-  // defino el modelo
-  sequelize.define("Dog", {
+  // define the model
+  sequelize.define('dog', {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
       allowNull: false,
-      primaryKey: true,
+      primaryKey: true
     },
     name: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false
     },
-    height_min: {
+    height: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    height_max: {
+    weight: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    weight_min: {
+    lifeSpan: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
-    weight_max: {
+    image: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
-    life_time_min: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    life_time_max: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    img: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      defaultValue: "https://www.nicepng.com/png/full/872-8728725_adventure-time-jake-the-dog-blinking-jake-adventure.png",
-    },
-    createInDb: {
+    createdAtDb: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
-      defaultValue: true,
-    },
-
+      defaultValue: true
+    }
   },
     {
-      timestamps: false
+      timestamps: false,
+      createdAt: false,
     }
   );
 };

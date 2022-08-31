@@ -11,7 +11,6 @@ const sequelize = new Sequelize(
     native: false, // lets Sequelize know we can use pg-native for ~30% more speed
   }
 );
-
 const basename = path.basename(__filename);
 
 const modelDefiners = [];
@@ -28,7 +27,7 @@ fs.readdirSync(path.join(__dirname, "/models"))
 
 // We inject the connection (sequelize) to all the models
 modelDefiners.forEach((model) => model(sequelize));
-//We capitalize the names of the models ie: product => Product
+// We capitalize the names of the models ie: product => Product
 let entries = Object.entries(sequelize.models);
 let capsEntries = entries.map((entry) => [
   entry[0][0].toUpperCase() + entry[0].slice(1),
@@ -36,16 +35,17 @@ let capsEntries = entries.map((entry) => [
 ]);
 sequelize.models = Object.fromEntries(capsEntries);
 
-//models
+// In sequelize.models are all imported models as properties
+// To relate them we do a destructuring
 const { Dog, Temperament } = sequelize.models;
 
-// relations
-Dog.belongsToMany(Temperament, { through: "Dog_Temperament" });
-Temperament.belongsToMany(Dog, { through: "Dog_Temperament" });
+// Here would come the relations
+Temperament.belongsToMany(Dog, { through: "dog_temperament" });
+Dog.belongsToMany(Temperament, { through: "dog_temperament" });
 
 module.exports = {
   ...sequelize.models,
   db: sequelize,
-  Dog,
   Temperament,
+  Dog,
 };

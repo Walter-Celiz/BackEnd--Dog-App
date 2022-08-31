@@ -1,8 +1,8 @@
 const { Router } = require("express");
 const router = Router();
-const { getTemperaments } = require("../controllers/temeperament");
+const { getAllTemperaments } = require("../controllers/temperamentController");
 
 //all this routes start with "/temperament"
-router.get("/", getTemperaments);
+router.get("/", getAllTemperaments);
 
 module.exports = router;
