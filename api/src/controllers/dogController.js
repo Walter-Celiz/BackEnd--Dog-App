@@ -40,18 +40,18 @@ const createDog = async (req, res) => {
     try {
         let {
             name,
-            minimHeight,
-            maximHeight,
-            minimWeight,
-            maximWeight,
+            minHeight,
+            maxHeight,
+            minWeight,
+            maxWeight,
             lifeSpan,
             image,
             createdAtDb,
             temperament
         } = req.body
 
-        let height = minimHeight + " - " + maximHeight
-        let weight = minimWeight + " - " + maximWeight
+        let height = minHeight + " - " + maxHeight
+        let weight = minWeight + " - " + maxWeight
 
         let dogCreated = await Dog.create({
             name,
