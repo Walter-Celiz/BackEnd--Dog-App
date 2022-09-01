@@ -4,8 +4,8 @@ const { Dog, Temperament } = require('../db');
 
 const getApiInfo = async () => {
     try {
-        const api = await axios.get(`https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`)
-        const dogInfo = await api.data.map(data => {
+        const apiCall = await axios.get(`https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`)
+        const dogInfo = await apiCall.data.map(data => {
             return {
                 id: data.id,
                 name: data.name,

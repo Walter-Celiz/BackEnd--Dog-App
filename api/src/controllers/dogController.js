@@ -37,39 +37,64 @@ const getDogsById = async (req, res) => {
 
 
 const createDog = async (req, res) => {
+    const { name,
+        minHeight,
+        maxHeight,
+        minWeight,
+        maxWeight,
+        lifeSpan,
+        image,
+        createdAtDb,
+        temperament } = req.body
+
+    let height = minHeight + " - " + maxHeight
+    let weight = minWeight + " - " + maxWeight
+
     try {
-        let {
-            name,
-            minHeight,
-            maxHeight,
-            minWeight,
-            maxWeight,
-            lifeSpan,
-            image,
-            createdAtDb,
-            temperament
-        } = req.body
-
-        let height = minHeight + " - " + maxHeight
-        let weight = minWeight + " - " + maxWeight
-
-        let dogCreated = await Dog.create({
+        Dog.create({
             name,
             height,
             weight,
             lifeSpan,
             image,
-            createdAtDb
+            createdAtDb,
+            temperament,
         })
+            .then((dog) => dog.addTemperament(temperament))
+            .then(res.send("se creo la wea"))
 
-        let temperamentDb = await Temperament.findAll({
-            where: {
-                name: temperament
-            }
-        })
+        // let {
+        // name,
+        // minHeight,
+        // maxHeight,
+        // minWeight,
+        // maxWeight,
+        // lifeSpan,
+        // image,
+        // createdAtDb,
+        // temperament
+        // } = req.body
 
-        dogCreated.addTemperament(temperamentDb)
-        res.status(200).send("Dogge created!!! 🟢🟢🟢🟢")
+        // let height = minHeight + " - " + maxHeight
+        // let weight = minWeight + " - " + maxWeight
+
+        // let dogCreated = await Dog.create({
+        //     name,
+        //     height,
+        //     weight,
+        //     lifeSpan,
+        //     image,
+        //     createdAtDb
+        // })
+
+        // let temperamentDb = await Temperament.findAll({
+        //     where: {
+        //         name: temperament
+        //     }
+        // })
+
+        // dogCreated.addTemperament(temperamentDb)
+        // res.status(200).send("Dogge created!!! 🟢🟢🟢🟢")
     }
     catch (error) {
         res.status(404).send(error + "#createDog fail!!! 🔴🔴🔴🔴")
